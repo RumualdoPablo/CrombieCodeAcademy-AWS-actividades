@@ -7,17 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  ADMIN
+  USER
+}
+
 model Product {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int    @id @default(autoincrement())
+  name        String
   description String
 }
 
 model Item {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int    @id @default(autoincrement())
+  name        String
   description String
-  category String
+  category    String
 }
 
 model User {
@@ -27,4 +32,5 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  rol       Roles    @default(USER)
 }

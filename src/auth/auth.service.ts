@@ -27,9 +27,16 @@ export class AuthService {
     if (!user || !(await bcrypt.compare(loginDto.password, user.password))) {
       throw new Error('Invalid credentials');
     }
-    const payload = { username: user.userName, email: user.email };
+    const payload = {
+      username: user.userName,
+      email: user.email,
+      roles: Array.isArray(user.rol) ? user.rol : [user.rol],
+    };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: process.env.JWT_SECRET || 'supersecret',
+        expiresIn: '10m',
+      }),
     };
   }
 }

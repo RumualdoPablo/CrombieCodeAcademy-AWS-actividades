@@ -18,14 +18,16 @@ export class JwtAuthGuard implements CanActivate {
       throw new UnauthorizedException('Missing or invalid token');
     }
 
-    console.log('wtf');
-
     const token = authHeader.split(' ')[1];
 
     try {
-      request.user = this.jwtService.verify(token);
+      request.user = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET || 'supersecret',
+      });
       return true;
     } catch (error) {
+      console.log(error);
+
       throw new UnauthorizedException('Invalid token');
     }
   }
