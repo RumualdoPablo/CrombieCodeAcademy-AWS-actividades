@@ -5,6 +5,6 @@
 
 */
 -- AlterTable
-ALTER TABLE `product` DROP PRIMARY KEY,
+ALTER TABLE `Product` DROP PRIMARY KEY,
     MODIFY `id` VARCHAR(191) NOT NULL,
     ADD PRIMARY KEY (`id`);
