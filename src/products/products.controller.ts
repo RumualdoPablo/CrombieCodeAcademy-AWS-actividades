@@ -16,7 +16,7 @@ import { AcceptedRoles } from 'src/custom-decorators/roles.decorator';
 import { Roles } from '@prisma/client';
 import { RolesGuard } from 'src/custom-decorators/roles.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -28,7 +28,7 @@ export class ProductsController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   findAll() {
     return this.productsService.findAll();
   }
@@ -41,7 +41,7 @@ export class ProductsController {
   @Patch(':id')
   // @UsePipes(new ValidationPipe({ exceptionFactory })) To customize error messages
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+    return this.productsService.update(id, updateProductDto);
   }
 
   @Delete(':id')

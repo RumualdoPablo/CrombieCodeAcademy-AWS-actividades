@@ -7,6 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { CognitoAuthController } from './cognito-auth/cognitoAuth.controller';
 import { CognitoAuthModule } from './cognito-auth/cognitoAuth.module';
+import { NotificationsGateway } from './websocket-example/notifications.gateway';
+import { NotificationsModule } from './websocket-example/notifications.module';
+import { WebsockModule } from './websock/websock.module';
 
 @Module({
   imports: [
@@ -14,13 +17,15 @@ import { CognitoAuthModule } from './cognito-auth/cognitoAuth.module';
     ProductsModule,
     ItemsModule,
     UserModule,
+    NotificationsModule,
     AuthModule,
     CognitoAuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    WebsockModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [NotificationsGateway],
 })
 export class AppModule {}

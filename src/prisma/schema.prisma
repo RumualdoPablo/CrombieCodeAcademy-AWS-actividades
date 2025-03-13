@@ -13,9 +13,10 @@ enum Roles {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(uuid())
   name        String
   description String
+  stock       Int    @default(0)
 }
 
 model Item {
