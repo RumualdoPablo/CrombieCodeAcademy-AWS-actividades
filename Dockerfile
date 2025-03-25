@@ -1,26 +1,24 @@
-# Use an official Node.js runtime as a parent image
-FROM node:20
+# Use Node.js Alpine for a lightweight image
+FROM node:18-alpine
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json first for better cache management
-COPY package*.json ./
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install prisma
-
-RUN npm install
-
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-RUN npx prisma generate --schema .app/src/prisma/schema.prisma 
-# Run build script
+# Generate Prisma client
+RUN npx prisma generate
+
+# Build the application
 RUN npm run build
 
-# Expose the app's port
+# Expose port
 EXPOSE 3000
 
-# Define the command to run the app
-CMD ["npm", "start"]
+# Start the application
+CMD ["node", "dist/main"]
