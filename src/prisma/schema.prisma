@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  ADMIN
+  USER
+}
+
+model Product {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  stock       Int    @default(0)
+}
+
+model Item {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  category    String
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  userName  String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  rol       Roles    @default(USER)
+}
