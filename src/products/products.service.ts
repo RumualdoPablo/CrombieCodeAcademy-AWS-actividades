@@ -19,8 +19,8 @@ export class ProductsService {
     return await this.prisma.product.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+    return await this.prisma.product.findUnique({ where: { id } });
   }
 
   async update(productId: string, updateProductDto: UpdateProductDto) {
@@ -52,7 +52,7 @@ export class ProductsService {
     return updatedProduct;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    return await this.prisma.product.delete({ where: { id } });
   }
 }
