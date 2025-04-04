@@ -10,6 +10,7 @@ import { CognitoAuthModule } from './cognito-auth/cognitoAuth.module';
 import { NotificationsGateway } from './websocket-example/notifications.gateway';
 import { NotificationsModule } from './websocket-example/notifications.module';
 import { S3Module } from './s3/s3.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { S3Module } from './s3/s3.module';
     }),
     S3Module,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [NotificationsGateway],
 })
 export class AppModule {}
